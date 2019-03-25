@@ -28,10 +28,10 @@ local MAX_NUM_VOICES = 16
 
 engine.name = "PolySub"
 
-local ctl = include "controls.lua"
+local ctl = include "lib/controls"
 local controls = ctl.for_engine("PolySub"):with_output_mix()
 
-local loopcut = include "loopcut.lua"
+local loopcut = include "lib/loopcut"
 loopcut.init()
 
 -- pythagorean minor/major, kinda
