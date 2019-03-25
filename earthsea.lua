@@ -8,7 +8,6 @@
 -- 1 2 play toggle
 -- 1 8 transpose mode
 
-local tab = require "tabutil"
 local pattern_time = require "pattern_time"
 
 local g = grid.connect()
@@ -169,7 +168,6 @@ function grid_note(e)
   local note = ((7 - e.y) * 5) + e.x
   if e.state > 0 then
     if nvoices < MAX_NUM_VOICES then
-      -- engine.start(e.id, getHzET(note), 0.0, 0.8)
       engine.start(e.id, getHzET(note))
 
       lit[e.id] = {
@@ -190,7 +188,6 @@ function grid_note(e)
 end
 
 local function reset_check()
-  -- print(pat.step)
   if mode_quantize and pat == patterns[i] then
     if pat.step == pat.count then
       patterns[2].step = 1
@@ -204,7 +201,6 @@ function grid_note_trans(e, track)
   local note = ((7 - e.y + (root.y - trans.y)) * 5) + e.x + (trans.x - root.x)
   if e.state > 0 then
     if nvoices < MAX_NUM_VOICES then
-      -- engine.start(e.id, getHzET(note), 0.0)
       engine.start(e.id, getHzET(note))
       lit[e.id] = {
         x = e.x + trans.x - root.x,
@@ -279,10 +275,10 @@ local function midi_event(data)
     end
   elseif data[1] == 128 then
     note_off(data[2])
-  elseif data[1] == 176 then
-    --cc(data1, data2)
-  elseif data[1] == 224 then
-  --bend(data1, data2)
+  -- elseif data[1] == 176 then
+  --   --cc(data1, data2)
+  -- elseif data[1] == 224 then
+  -- --bend(data1, data2)
   end
 end
 
