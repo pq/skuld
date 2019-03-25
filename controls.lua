@@ -3,7 +3,7 @@
 -- in-app param control
 -- experiments
 
-local ctl = include "controls.lua"
+local ctl = include "lib/controls"
 engine.name = "PolySub"
 local controls = ctl.for_engine():with_output_mix()
 
