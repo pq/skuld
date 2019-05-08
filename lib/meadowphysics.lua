@@ -71,7 +71,7 @@ function mp.new()
 		m.scount[i] = 0
 	end
 
-	m.mp_event = function(row, state) end 
+	m.mp_event = function(row, state) end
 	return m
 end
 
@@ -168,8 +168,8 @@ function mp:clock()
 		if self.tick[i] == 0 then
 			self.tick[i] = self.speed[i]
 
-			if self.position[i] == 1 then 
-				self:apply_rule(i) 
+			if self.position[i] == 1 then
+				self:apply_rule(i)
 
 				self.position[i] = self.position[i] - 1
 
@@ -219,12 +219,12 @@ function mp:gridevent(x, y, z)
 			self.scount[y] = 0
 		end
 
-		if self.mode == mp.MODE_SPEED and z == 1 then 
-			self.edit_row = y 
+		if self.mode == mp.MODE_SPEED and z == 1 then
+			self.edit_row = y
 		end
 
 	elseif x == 2 and self.mode ~= mp.MODE_POSITION then
-		if self.mode == mp.MODE_SPEED and z == 1 then 
+		if self.mode == mp.MODE_SPEED and z == 1 then
 			self.mode = mp.MODE_RULES
 			self.edit_row = y
 		elseif self.mode == mp.MODE_RULES and z == 0 then
@@ -281,7 +281,7 @@ function mp:gridevent(x, y, z)
 			elseif x == 5 then
 				self.sound = self.sound ~ 1
 			elseif x == 3 then
-				if self.position[y] == -1 then 
+				if self.position[y] == -1 then
 					self.position[y] = self.count[y]
 				else
 					self.position[y] = -1
@@ -316,7 +316,7 @@ function mp:gridredraw(g)
 			end
 		end
 	elseif self.mode == mp.MODE_SPEED then
-		for i=1,8 do 
+		for i=1,8 do
 			if self.position[i] >= 1 then gbuf:led_level_set(self.position[i], i, mp.L0) end
 
 			if self.position[i] ~= -1 then gbuf:led_level_set(3, i, 2) end
@@ -349,8 +349,8 @@ function mp:gridredraw(g)
 		end
 
 		gbuf:led_level_set(1, self.edit_row, mp.L2)
-	elseif self.mode == mp.MODE_RULES then 
-		for i=1,8 do 
+	elseif self.mode == mp.MODE_RULES then
+		for i=1,8 do
 			if self.position[i] >= 1 then gbuf:led_level_set(self.position[i], i, mp.L0) end
 		end
 
@@ -380,7 +380,7 @@ function mp:gridredraw(g)
 			local k = mp.SIGN[self.rules[self.edit_row]][i]
 			for j=1,8 do
 				if (k & (1 << j)) ~= 0 then
-					gbuf:led_level_set(9+j, i, mp.L2) 
+					gbuf:led_level_set(9+j, i, mp.L2)
 				end
 			end
 		end
