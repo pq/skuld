@@ -12,7 +12,7 @@
 
 engine.name = "PolyPerc"
 
-local hs = include("awake/lib/halfsecond")
+local delay = include('lib/delay')
 
 -- TODO: fixme.
 local data_dir = "/home/we/dust/code/meadowphysics/data/"
@@ -221,7 +221,7 @@ function init()
 	grid_clk:start()
 	clk:start()
 
-  hs.init()
+  delay.init()
 end
 
 function event(row, state)
