@@ -1,4 +1,3 @@
-
 local tabutil = require "tabutil"
 
 local gridscales = {}
@@ -71,12 +70,12 @@ function gridscales:add_params()
 		type = "option",
 		id = "root_note",
 		name = "root note",
-		options = self.NOTE_NAMES, 
+		options = self.NOTE_NAMES,
 		default = 60,
 	}
 end
 
-function gridscales:redraw() 
+function gridscales:redraw()
 	screen.clear()
 	screen.aa(1)
 
@@ -101,7 +100,7 @@ function gridscales:gridevent(x, y, z)
 	if x < 9 then
 		if z == 1 then
 			if y == 7 then -- top row
-				self.selected = x		
+				self.selected = x
 			elseif y == 8 then -- bottom rom
 				self.selected = 8 + x
 			end
@@ -120,7 +119,7 @@ function gridscales:gridredraw(g)
 	for x=1,8 do
 		gbuf:led_level_set(x, 7, self.selected == x and gridscales.L2 or gridscales.L0)
 	end
-	
+
 	-- draw bottom row
 	for x=9,16 do
 		gbuf:led_level_set(x-8, 8, self.selected == x and gridscales.L2 or gridscales.L0)
