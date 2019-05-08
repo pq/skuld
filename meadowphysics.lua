@@ -12,16 +12,19 @@
 
 engine.name = "PolyPerc"
 
-hs = include("awake/lib/halfsecond")
+local hs = include("awake/lib/halfsecond")
 
 local data_dir = "/home/we/dust/code/meadowphysics/data/"
 
 local shift = 0
 
-local MeadowPhysics = require "meadowphysics/lib/meadowphysics"
+-- local MeadowPhysics = require "meadowphysics/lib/meadowphysics"
+local MeadowPhysics = include('lib/meadowphysics')
 local mp
 
-local GridScales = require "meadowphysics/lib/gridscales"
+-- local GridScales = require "meadowphysics/lib/gridscales"
+local GridScales = include('lib/gridscales')
+
 local gridscales
 
 local MusicUtil = require "musicutil"
@@ -38,8 +41,8 @@ options.STEP_LENGTH_DIVIDERS = {1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64}
 local midi_out_device
 local midi_out_channel
 
-notes = {}
-local active notes = {}
+local notes = {}
+local active_notes = {}
 
 local clk = BeatClock.new()
 local clk_midi = midi.connect()
@@ -60,7 +63,7 @@ local function step()
 	all_notes_off()
 
 	mp:clock()
-	
+
 	for _,n in pairs(notes) do
 		local f = MusicUtil.note_num_to_freq(n)
 		if (params:get("output") == 1 or params:get("output") == 3) then
@@ -112,7 +115,7 @@ function init()
 	params:set("bpm", 120)
 
 	notes_off_metro.event = all_notes_off
-	
+
 	params:add {
 		type = "option",
 		id = "output",
@@ -139,7 +142,7 @@ function init()
 			midi_out_channel = value
 		end
 	}
-	
+
 	params:add_separator()
 
 	params:add {
@@ -165,14 +168,14 @@ function init()
 
 	-- metro
 	grid_clk = metro.init()
-	grid_clk.event = gridredraw 
+	grid_clk.event = gridredraw
 	grid_clk.time = 1 / 30
 
 	screen_clk = metro.init()
 	screen_clk.event = function() redraw() end
 	screen_clk.time = 1 / 15
 
-	-- engine 
+	-- engine
   params:add {
 		type = "control",
 		id = "amp",
@@ -321,7 +324,7 @@ function key(n, z)
 	if n == 1 and z == 1 then
 		gridscales:set_scale(8)
 	end
-	if n == 2 and z == 1 then 
+	if n == 2 and z == 1 then
 		shift = shift ~ 1
 	elseif n == 3 and z == 1 then
 		if shift == 1 then
@@ -331,4 +334,3 @@ function key(n, z)
 		end
 	end
 end
-
