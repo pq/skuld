@@ -14,15 +14,14 @@ engine.name = "PolyPerc"
 
 local hs = include("awake/lib/halfsecond")
 
+-- TODO: fixme.
 local data_dir = "/home/we/dust/code/meadowphysics/data/"
 
 local shift = 0
 
--- local MeadowPhysics = require "meadowphysics/lib/meadowphysics"
 local MeadowPhysics = include('lib/meadowphysics')
 local mp
 
--- local GridScales = require "meadowphysics/lib/gridscales"
 local GridScales = include('lib/gridscales')
 
 local gridscales
@@ -90,15 +89,16 @@ local function reset_pattern()
 	clk:reset()
 end
 
-local grid_clk 
+local grid_clk
 
-local screen_clk 
+local screen_clk
 
 function init()
+	print('loading data...')
 	-- meadowphysics
-	mp = MeadowPhysics.loadornew(data_dir .. "mp.data") 
-	mp.mp_event = event 
-	
+	mp = MeadowPhysics.loadornew(data_dir .. "mp.data")
+	mp.mp_event = event
+
 	-- gridscales
 	gridscales = GridScales.loadornew(data_dir .. "gridscales.data")
 	gridscales:add_params()
@@ -249,9 +249,7 @@ function draw_mp()
 	for i=1,8 do
 		if mp.position[i] >= 1 then
 			local y = (i-1)*8
-			local x = 0
-
-			x = (mp.position[i]-1)*8
+			local x = (mp.position[i]-1)*8
 			screen.level(15)
 			screen.move(x, y)
 			screen.rect(x, y, 8, 8)
